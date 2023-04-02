@@ -48,7 +48,7 @@ class MainGroupViewController: UIViewController {
     
     
     private func setSegmentedControlSettings() {
-        segmentedControl.backgroundColor = UIColor.vkColor.main
+        segmentedControl.backgroundColor = UIColor.vkColor
         segmentedControl.tintColor = .clear
         
         let fontNormal = UIFont(name: "HelveticaNeue", size: 17) ?? UIFont()

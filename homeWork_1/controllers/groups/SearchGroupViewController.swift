@@ -101,7 +101,7 @@ extension SearchGroupViewController: UITableViewDelegate, UITableViewDataSource 
             let name = self.groups[row].name
             self.groupSelected(gid: gid, name: name, isMember: isMember)
         }
-        leaveJoin.backgroundColor = isMember ? .red : UIColor.vkColor.main
+        leaveJoin.backgroundColor = isMember ? .red : UIColor.vkColor
         return [leaveJoin]
     }
     

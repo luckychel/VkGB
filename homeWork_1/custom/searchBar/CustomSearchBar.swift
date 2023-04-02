@@ -27,7 +27,7 @@ class CustomSearchBar: UIView {
 
  
     func setSubViews(width: CGFloat) {
-        self.backgroundColor = UIColor.vkColor.main
+        self.backgroundColor = UIColor.vkColor
         textField.delegate = self
         textField.frame = CGRect(x: 10, y: (self.frame.height - 40) / 2, width: width - 20, height: 40)
         buttonCancel.frame = CGRect(x: width, y: 8, width: 0, height: 40)
