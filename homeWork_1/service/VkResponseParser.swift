@@ -20,36 +20,20 @@ class VkResponseParser {
     func parseFriends(result: AFResult<Any>) -> [VkFriend] {
         var friends = [VkFriend]()
         
-        var firstnameArr = [String]()
-        firstnameArr.append("Александр")
-        firstnameArr.append("Alex")
-        firstnameArr.append("Игорь")
-        firstnameArr.append("Чармандер")
-        firstnameArr.append("Пикачу")
-        firstnameArr.append("Сквиртл")
-        firstnameArr.append("Псайдак")
-        
-        var lastnameArr = [String]()
-        lastnameArr.append("Пушкин")
-        lastnameArr.append("Чехов")
-        lastnameArr.append("")
-        lastnameArr.append("Некрасов")
-        lastnameArr.append("Достоевский")
-        
         switch result {
         case .success(let value):
             let json = JSON(value)
-            if let responses = json["response"].array {
+            if let responses = json["response"]["items"].array {
                 for response in responses {
                     if (response.dictionary != nil) {
                         let friend = VkFriend()
-                        friend.uid = response["uid"].intValue
+                        friend.uid = response["id"].intValue
                         friend.online = response["online"].intValue
                         friend.user_id = response["user_id"].intValue
                         friend.photo = response["photo_100"].stringValue
                         friend.nickname = response["nickname"].stringValue
-                        friend.last_name = response["last_name"].string ?? ""
-                        friend.first_name = response["first_name"].string ?? ""
+                        friend.last_name = response["last_name"].stringValue
+                        friend.first_name = response["first_name"].stringValue
                         friend.generateFullName()
                         friends.append(friend)
                     } else {
@@ -66,7 +50,7 @@ class VkResponseParser {
             break
         }
         
-        if friends.count > 0 {
+        if RealmWorker.instance.getItems(VkFriend.self)?.isEmpty ?? false && friends.count > 0 {
             RealmWorker.instance.saveItems(items: friends, needMigrate: true)//saveFriends(friends)
         } else {
             friends = RealmWorker.instance.getMyFriends()//getItems(VkFriend.self)
@@ -81,18 +65,18 @@ class VkResponseParser {
         switch result {
         case .success(let value):
             let json = JSON(value)
-            if let responses = json["response"].array {
+            if let responses = json["response"]["items"].array {
                 for response in responses {
                     if (response.dictionary != nil) {
                         let group = VkGroup()
-                        group.gid = response["gid"].intValue
+                        group.gid = response["id"].intValue
                         group.is_admin = response["is_admin"].intValue
                         group.is_closed = response["is_closed"].intValue
                         group.is_member = response["is_member"].intValue
                         group.name = response["name"].stringValue
-                        group.photo = response["photo"].stringValue
-                        group.photoBig = response["photo_big"].stringValue
-                        group.photoMedium = response["photo_medium"].stringValue
+                        group.photo = response["photo_50"].stringValue
+                        group.photoMedium = response["photo_100"].stringValue
+                        group.photoBig = response["photo_200"].stringValue
                         group.type = response["type"].stringValue
                         groups.append(group)
                     } else {
@@ -109,7 +93,7 @@ class VkResponseParser {
             break
         }
         if !isSearched {
-            if groups.count > 0 {
+            if RealmWorker.instance.getItems(VkGroup.self)?.isEmpty ?? false && groups.count > 0 {
                 RealmWorker.instance.saveItems(items: groups)//saveGroups(groups)//
             } else {
                 groups = RealmWorker.instance.getMyGroups()//getItems(VkGroup.self)
@@ -142,12 +126,12 @@ class VkResponseParser {
         switch result {
         case .success(let value):
             let json = JSON(value)
-            if let responses = json["response"].array {
+            if let responses = json["response"]["items"].array {
                 for response in responses {
                     if (response.dictionary != nil) {
                         let photo = VkPhoto()
-                        photo.pid = response["pid"].intValue
-                        photo.aid = response["aid"].intValue
+                        photo.pid = response["id"].intValue
+                        photo.aid = response["album_id"].intValue
                         photo.created = response["created"].intValue
                         photo.height = response["height"].intValue
                         photo.width = response["width"].intValue
@@ -157,11 +141,11 @@ class VkResponseParser {
                         photo.text = response["text"].stringValue
                         
                         photo.likes = VkLikes()
-                        photo.likes.count = response["likes"]["count"].intValue
-                        photo.likes.user_likes = response["likes"]["user_likes"].intValue
+                        photo.likes?.count = response["likes"]["count"].intValue
+                        photo.likes?.user_likes = response["likes"]["user_likes"].intValue
                         
                         photo.reposts = VkReposts()
-                        photo.reposts.count = response["reposts"]["count"].intValue
+                        photo.reposts?.count = response["reposts"]["count"].intValue
                         photos.append(photo)
                     } else {
                         print("is not Response")

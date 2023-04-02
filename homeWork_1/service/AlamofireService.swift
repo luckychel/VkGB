@@ -53,7 +53,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "fields": "id,nickname,photo_100,status",
-            "v": "3.0",
+            "v": "5.131"
             ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -77,8 +77,8 @@ class AlamofireService {
             "access_token": Session.instance.token,
             "fields": "id,name",
             "extended": "1",
-            "v": "3.0",
-            "count":"100"
+            "count":"100",
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -98,7 +98,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "group_id": "\(gid)",
-            "v": "3.0"
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -118,7 +118,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "group_id": "\(gid)",
-            "v": "3.0"
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -141,7 +141,7 @@ class AlamofireService {
             "q": search,
             "extended": "1",
             "sort": "2",
-            "v": "3.0"
+            "v": "5.131"
         ]
         AF.request(fullRow, method: .get, parameters: params)
             .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
@@ -161,8 +161,9 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "extended": "1",
-            "v": "3.0",
-            "count":"100"
+            "count":"100",
+            "v": "5.131"
+            
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -182,9 +183,9 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "extended": "1",
-            "v": "3.0",
             "owner_id":"\(id)",
-            "count":"100"//,
+            "count":"100",
+            "v": "5.131"
             //            "album_id":"saved"
         ]
         
@@ -205,7 +206,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "filters": "post",
-            "v": "5.87",
+            "v": "5.131",
             "count":"20",
             "start_from":"\(startFrom)"
             //            "end_time":"\(1)"
@@ -228,7 +229,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "filters": "post",
-            "v": "5.87",
+            "v": "5.131",
             "count":"50",
             "sort":"desc",
             "need_likes":"1",

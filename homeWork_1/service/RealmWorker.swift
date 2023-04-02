@@ -17,12 +17,23 @@ class RealmWorker {
     
     static var configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     
+    //MARK: получение объекта realm
+    static func getRealm() -> Realm? {
+        
+        var realm: Realm?
+        do {
+            realm = try Realm()
+        } catch {
+            print(error)
+        }
+        return realm
+
+    }
     
     func saveItems<Element: Object>(items: [Element], needMigrate: Bool = false, needUpdate: Bool = true) -> Realm? {
         
         do {
-            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: needMigrate)
-            let realm = try Realm(configuration: config)
+            let realm = try Realm(configuration: RealmWorker.configuration)
             try realm.write {
                 realm.add(items)
             }
