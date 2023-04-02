@@ -1,20 +1,20 @@
 //
-//  GroupAdapter.swift
+//  FriendsAdapter.swift
 //  homeWork_1
 //
-//  Created by Александр Кукоба on 02.04.2023.
+//  Created by Александр Кукоба on 03.04.2023.
 //  Copyright © 2023 Кукоба Александр. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-final class GroupAdapter {
+final class FriendsAdapter {
     
     private let realmWorker = RealmWorker.instance
     var notificationToken: NotificationToken?
     
-    func getGroups(completion: @escaping ([VkGroup]) -> Void) {
+    func getFriends(completion: @escaping ([VkFriend]) -> Void) {
        
         var realm: Realm?
         do {
@@ -23,31 +23,30 @@ final class GroupAdapter {
             print("REALM ERROR: error in initializing realm \(error)")
         }
         
-        let realmGroups = realm!.objects(VkGroup.self)
+        let realmFriends = realm!.objects(VkFriend.self)
         
-        notificationToken = realmGroups.observe{(changes: RealmCollectionChange) in
+        notificationToken = realmFriends.observe{(changes: RealmCollectionChange) in
             
             switch changes {
             case .initial(_):
-                print("==========GROUP INITIAL==========")
+                print("==========FRIENDS INITIAL==========")
             case .update(let collection, _, _, _):
                 if !collection.isEmpty {
-                    print("==========GROUP UPDATE==========")
-                    var groups: [VkGroup] = []
+                    print("==========FRIENDS UPDATE==========")
+                    var friends: [VkFriend] = []
                     for col in collection {
-                        groups.append(col)
+                        friends.append(col)
                     }
-                    completion(groups)
+                    completion(friends)
                 }
-                else
-                {
-                    print("==========Empty GROUP update==========")
+                else {
+                    print("==========Empty FRIENDS update==========")
                 }
             case .error(let err):
                 print(err)
             }
         }
-        AlamofireService.instance.getGroups()
+        AlamofireService.instance.getFriends()
     }
    
 }

@@ -18,10 +18,8 @@ class FriendsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var customControll: CustomControl!
-    
     @IBOutlet weak var searchBar: CustomSearchBar!
-    
-    
+
     var searchActive = false
     
     private var selectedSection = -1
@@ -30,10 +28,13 @@ class FriendsViewController: UIViewController {
     private var groupedFriends = [FriendList]()
     private var filteredGroupedFriends = [FriendList]()
     
+    private var friends = [VkFriend]()
+    
+    private let friendsApapter = FriendsAdapter()
     
     //неюзаемая штука для показа возможностей
-    private var friends: Results<VkFriend>?
-    private var notificationTokenGroups: NotificationToken?
+    //private var friends: Results<VkFriend>?
+    //private var notificationTokenGroups: NotificationToken?
     
 
     override func viewDidLoad() {
@@ -43,45 +44,35 @@ class FriendsViewController: UIViewController {
         setCustomView()
         setSearchBarSettings()
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        setObserver()
     }
-    
-    
-    private func setObserver() {
-        
-    }
-    
-    
+
     private func setTableViewSettings() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
-    
-    
-    
-    private func setGroupedFriend() {
+
+    private func setGroupedFriend(_ friends: [VkFriend]) {
         GlobalConstants.titles.removeAll()
         var groupedFriend = FriendList()
-        if let friends = friends {
-            for friend in friends {
-                //last_name->full_name
-                if groupedFriend.title != friend.full_name.prefix(1) {
-                    GlobalConstants.titles.append(String(friend.full_name.prefix(1)))
-                    if (groupedFriend.title.count != 0) {
-                        groupedFriends.append(groupedFriend)
-                        groupedFriend = FriendList()
-                    }
-                    groupedFriend.title = String(friend.full_name.prefix(1))
+
+        for friend in friends {
+            //last_name->full_name
+            if groupedFriend.title != friend.full_name.prefix(1) {
+                GlobalConstants.titles.append(String(friend.full_name.prefix(1)))
+                if (groupedFriend.title.count != 0) {
+                    groupedFriends.append(groupedFriend)
+                    groupedFriend = FriendList()
                 }
-                groupedFriend.friends.append(friend)
+                groupedFriend.title = String(friend.full_name.prefix(1))
             }
-            groupedFriends.append(groupedFriend)
+            groupedFriend.friends.append(friend)
         }
+        groupedFriends.append(groupedFriend)
+        
     }
     
     
@@ -104,30 +95,32 @@ extension FriendsViewController {
     //MARK: - Network funcs
     private func getFriends() {
     
-//        let sortProperties = [SortDescriptor(keyPath: "first_name", ascending: true), SortDescriptor(keyPath: "last_name", ascending: true)]
-        friends = RealmWorker.instance.getItems(VkFriend.self)?.sorted(byKeyPath: "first_name").sorted(byKeyPath: "last_name")
-        //sorted(by: { (first, second) -> Bool in
-//        return (first.first_name < second.first_name && first.last_name < second.last_name)
-//    })
-        notificationTokenGroups = friends?.observe { changes in
-            print("friendObserver is work")
-            switch changes {
-            case .initial( _)://let collection
-                self.migrateFriends()
-            case .update(_, _, _, _):
-                //(let collection, let deletions, let insertions, let modifications):
-                    self.migrateFriends()
-            case .error(let error):
-                print(error.localizedDescription)
-            }
+//        friends = RealmWorker.instance.getItems(VkFriend.self)?.sorted(byKeyPath: "first_name").sorted(byKeyPath: "last_name")
+//
+//        notificationTokenGroups = friends?.observe { changes in
+//            print("friendObserver is work")
+//            switch changes {
+//            case .initial( _)://let collection
+//                self.migrateFriends()
+//            case .update(_, _, _, _):
+//                //(let collection, let deletions, let insertions, let modifications):
+//                    self.migrateFriends()
+//            case .error(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//        AlamofireService.instance.getFriends(delegate: self)
+        
+        friendsApapter.getFriends {[weak self] result in
+            guard let self = self else { return }
+            self.returnFriends(result)
         }
-        AlamofireService.instance.getFriends(delegate: self)
     }
     
-    private func migrateFriends() {
-        setGroupedFriend()
-        tableView.reloadData()
-    }
+//    private func migrateFriends() {
+//        setGroupedFriend()
+//        tableView.reloadData()
+//    }
     
 }
 
@@ -163,7 +156,6 @@ extension FriendsViewController: CustomSearchBarDelegate {
                 }
             }
         }
-        
         self.tableView.reloadData()
     }
     
@@ -235,11 +227,8 @@ extension FriendsViewController: FriendsViewControllerDelegate {
 extension FriendsViewController: VkApiFriendsDelegate {
     
     func returnFriends(_ friends: [VkFriend]) {
-//        self.friends = friends
-//        self.friends.sort { ($0.last_name, $0.first_name) <
-//            ($1.last_name, $1.first_name)}
-//        setGroupedFriend()
-//        tableView.reloadData()
+        setGroupedFriend(friends)
+        tableView.reloadData()
     }
     
 }

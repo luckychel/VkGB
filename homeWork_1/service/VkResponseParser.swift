@@ -50,11 +50,11 @@ class VkResponseParser {
             break
         }
         
-        if RealmWorker.instance.getItems(VkFriend.self)?.isEmpty ?? false && friends.count > 0 {
-            RealmWorker.instance.saveItems(items: friends, needMigrate: true)//saveFriends(friends)
-        } else {
-            friends = RealmWorker.instance.getMyFriends()//getItems(VkFriend.self)
-        }
+//        if RealmWorker.instance.getItems(VkFriend.self)?.isEmpty ?? false && friends.count > 0 {
+//            RealmWorker.instance.saveItems(items: friends, needMigrate: true)//saveFriends(friends)
+//        } else {
+//            friends = RealmWorker.instance.getMyFriends()//getItems(VkFriend.self)
+//        }
         
         return friends
     }
@@ -92,13 +92,13 @@ class VkResponseParser {
             print ("parseGroups - error: \(error.localizedDescription)")
             break
         }
-        if !isSearched {
-            if RealmWorker.instance.getItems(VkGroup.self)?.isEmpty ?? false && groups.count > 0 {
-                RealmWorker.instance.saveItems(items: groups)//saveGroups(groups)//
-            } else {
-                groups = RealmWorker.instance.getMyGroups()//getItems(VkGroup.self)
-            }
-        }
+//        if !isSearched {
+//            if RealmWorker.instance.getItems(VkGroup.self)?.isEmpty ?? false && groups.count > 0 {
+//                RealmWorker.instance.saveItems(items: groups)//saveGroups(groups)//
+//            } else {
+//                groups = RealmWorker.instance.getMyGroups()//getItems(VkGroup.self)
+//            }
+//        }
         return groups.sorted(by: { $0.is_member > $1.is_member && $0.name < $1.name })
 
     }

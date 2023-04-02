@@ -46,7 +46,7 @@ class AlamofireService {
     private init(){}
     
     
-    //MARK: Друзья
+    //MARK: Друзья с делегатом
     func getFriends(delegate: VkApiFriendsDelegate) {
         let method = "friends.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
@@ -66,8 +66,27 @@ class AlamofireService {
         }
     }
     
+    //MARK: Друзья без делегата
+    func getFriends() {
+        let method = "friends.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "fields": "id,nickname,photo_100,status",
+            "v": "5.131"
+            ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+                
+                let friends = VkResponseParser.instance.parseFriends(result: response.result)
+
+                RealmWorker.instance.saveFriends(friends)
+
+        }
+    }
     
-    //MARK: Группы
+    //MARK: Группы с делегатом
     func getGroups(delegate: VkApiGroupsDelegate) {
         let method = "groups.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -86,6 +105,28 @@ class AlamofireService {
                 DispatchQueue.main.async {
                     delegate.returnGroups(groups)
                 }
+        }
+    }
+    
+    //MARK: Группы без делегата
+    func getGroups() {
+        let method = "groups.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "fields": "id,name",
+            "extended": "1",
+            "count":"100",
+            "v": "5.131"
+        ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+        
+            let groups = VkResponseParser.instance.parseGroups(result: response.result, isSearched: false)
+                
+            RealmWorker.instance.saveGroups(groups)
+                
         }
     }
     
@@ -242,7 +283,7 @@ class AlamofireService {
                     countComments: $0.countComments, isLiked: $0.isLiked
                     )
                                                 })
-                RealmWorker.saveNewsToRealm(news: realmFeed)
+                RealmWorker.instance.saveNewsToRealm(news: realmFeed)
         }
     }
     

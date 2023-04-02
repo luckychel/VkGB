@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5DC3809695F037A6B111CF13 /* Pods_homeWork_1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB03EE607AE3B19FD932EA7A /* Pods_homeWork_1.framework */; };
+		81D9827529DA31E30056CE1D /* FriendsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827429DA31E30056CE1D /* FriendsAdapter.swift */; };
 		81E44C9229D9F79E00AC03A9 /* NewsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */; };
+		81E44C9829DA1B4700AC03A9 /* GroupAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */; };
+		81E44C9A29DA1FEF00AC03A9 /* VkFeedRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */; };
 		840110E021EC364C0044AEB7 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840110DF21EC364C0044AEB7 /* TestViewController.swift */; };
 		84105FB3217F173D00EEF673 /* VKApiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84105FB2217F173D00EEF673 /* VKApiViewController.swift */; };
 		8415662D21B7916500AF9803 /* SearchGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415662C21B7916500AF9803 /* SearchGroupViewController.swift */; };
@@ -64,7 +67,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81D9827429DA31E30056CE1D /* FriendsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAdapter.swift; sourceTree = "<group>"; };
 		81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAdapter.swift; sourceTree = "<group>"; };
+		81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAdapter.swift; sourceTree = "<group>"; };
+		81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkFeedRealm.swift; sourceTree = "<group>"; };
 		840110DF21EC364C0044AEB7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		84105FB2217F173D00EEF673 /* VKApiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiViewController.swift; sourceTree = "<group>"; };
 		8415662C21B7916500AF9803 /* SearchGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */,
+				81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */,
+				81D9827429DA31E30056CE1D /* FriendsAdapter.swift */,
 			);
 			path = adapters;
 			sourceTree = "<group>";
@@ -169,6 +177,7 @@
 				84EC564921A2A2DA00C8542C /* VkFeed.swift */,
 				84D1DEC121AE8CFD006FC20E /* VkComment.swift */,
 				84D1DEBF21AE8AB9006FC20E /* VkCommentProfile.swift */,
+				81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */,
 			);
 			path = vk;
 			sourceTree = "<group>";
@@ -541,6 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5766F22160DBA70029F786 /* FriendHeaderTableViewCell.swift in Sources */,
+				81D9827529DA31E30056CE1D /* FriendsAdapter.swift in Sources */,
 				AA5766EE2160CB9C0029F786 /* FriendCollectionViewCell.swift in Sources */,
 				842A0408216DB83F00FAFF92 /* CustomSearchBar.swift in Sources */,
 				8442ABAB2192EC0E003DDA6A /* VkResponseParser.swift in Sources */,
@@ -548,9 +558,11 @@
 				842A03E0216C860000FAFF92 /* CustomIndicator.swift in Sources */,
 				8415662D21B7916500AF9803 /* SearchGroupViewController.swift in Sources */,
 				84D1DEC021AE8AB9006FC20E /* VkCommentProfile.swift in Sources */,
+				81E44C9A29DA1FEF00AC03A9 /* VkFeedRealm.swift in Sources */,
 				84A74D8321EDC12900AE5A76 /* NewsTableViewCell.swift in Sources */,
 				844ACE352186BFC500565895 /* VkFriend.swift in Sources */,
 				8415662F21B7918C00AF9803 /* MainGroupViewController.swift in Sources */,
+				81E44C9829DA1B4700AC03A9 /* GroupAdapter.swift in Sources */,
 				8442AB9721870B13003DDA6A /* VkPhoto.swift in Sources */,
 				84C1209B2161C6ED0044CBEB /* MyGroupCell.swift in Sources */,
 				AA5766D92160A72F0029F786 /* LoginViewController.swift in Sources */,

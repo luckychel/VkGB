@@ -123,7 +123,7 @@ extension CustomSearchBar: UITextFieldDelegate {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        print ("textFieldDidChange text : \(textField.text!)")
+        //print ("textFieldDidChange text : \(textField.text!)")
         if let delegate = delegate {
             delegate.textChanged(text: textField.text!)
         }

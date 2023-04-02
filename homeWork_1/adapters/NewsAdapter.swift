@@ -16,10 +16,14 @@ final class NewsAdapter {
     
     func getNews(startFrom: String, completion: @escaping ([VkFeed]) -> Void) {
        
-        guard let realm = realmWorker.getRealm() else {
-            return
+        var realm: Realm?
+        do {
+            realm = try Realm()
+        } catch {
+            print("REALM ERROR: error in initializing realm \(error)")
         }
-        let realmNews = realm.objects(VkFeedRealm.self)
+        
+        let realmNews = realm!.objects(VkFeedRealm.self)
         
         notificationToken = realmNews.observe{[weak self] (changes: RealmCollectionChange) in
             
@@ -27,14 +31,19 @@ final class NewsAdapter {
             
             switch changes {
             case .initial(_):
-                print("initial")
+                print("==========NEWS INITIAL==========")
             case .update(let collection, _, _, _):
-                var news: [VkFeed] = []
-                for col in collection {
-                    news.append(self.convertRealmVkFeedToVkFeed(col))
+                if !collection.isEmpty {
+                    print("==========GROUP UPDATE==========")
+                    var news: [VkFeed] = []
+                    for col in collection {
+                        news.append(self.convertRealmVkFeedToVkFeed(col))
+                    }
+                    completion(news)
                 }
-                completion(news)
-                print("update")
+                else {
+                    print("==========Empty NEWS update==========")
+                }
             case .error(let err):
                 print(err)
             }

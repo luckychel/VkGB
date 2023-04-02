@@ -22,7 +22,6 @@ class SearchGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.title = "Группы"
         setTableViewSettings()
         setSearchBarSettings()
     }

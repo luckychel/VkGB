@@ -53,11 +53,11 @@ class NewsViewController: UIViewController {
         isLoad = true
         self.needClearNews = needClearNews
         
-        newsAdapter.getNews(startFrom: needClearNews ? "":startFrom, completion: {[weak self] results in
-            self?.returnFeeds(results)
-        })
+//        newsAdapter.getNews(startFrom: needClearNews ? "":startFrom, completion: {[weak self] results in
+//            self?.returnFeeds(results)
+//        })
 
-        //AlamofireService.instance.getNews(startFrom: needClearNews ? "":startFrom, delegate: self)
+        AlamofireService.instance.getNews(startFrom: needClearNews ? "":startFrom, delegate: self)
     }
     
     
