@@ -18,7 +18,7 @@ class RealmWorker {
     static var configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     
     //MARK: получение объекта realm
-    static func getRealm() -> Realm? {
+    func getRealm() -> Realm? {
         
         var realm: Realm?
         do {
@@ -170,5 +170,45 @@ class RealmWorker {
         }
         return myPhotos
     }
+    
+    
+    static func saveNewsToRealm(news: [VkFeedRealm]) {
+        
+        guard news.count > 0 else {
+            print("SaveNews ToRealm error: Empty news List")
+            return
+        }
+        
+        guard let realm = RealmWorker.instance.getRealm() else { return }
+        
+        do {
+            let oldGroups = realm.objects(VkFeedRealm.self)
+            realm.beginWrite()
+            realm.delete(oldGroups)
+            try realm.commitWrite()
+            
+        } catch {
+            print("SaveNews To Realm error: \(error)")
+        }
+        
+        try! realm.write({
+            realm.add(news)
+        })
+    }
+//    
+//    func getNewsFromRealm() -> [VkFeed] {
+//        var news = [VkFeed]()
+//        do {
+//            let realm = try Realm()
+//            let phs = realm.objects(VkFeed.self)
+//            for ph in phs {
+//                news.append(ph)
+//            }
+//        } catch {
+//            print("GetNews FroRealm error: \(error)")
+//        }
+//        return news
+//    }
+    
     
 }

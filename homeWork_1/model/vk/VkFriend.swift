@@ -32,12 +32,5 @@ class VkFriend: Object {//, Codable : Object
     
     func generateFullName() {
         self.full_name = (first_name.count > 0 ? (first_name + " ") : "") + (last_name.count > 0 ? last_name : "")
-    }
-    
-    
-
-
-
-
-    
+    }    
 }

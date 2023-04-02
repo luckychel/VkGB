@@ -13,16 +13,16 @@ class NewsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let refreshControl = UIRefreshControl()
     
-//    private let exampleCell = NewsTableViewCell()
     private var textHeight: CGFloat = 0
     private var imageHeight: CGFloat = 0
-    
     
     private var feeds = [VkFeed]()
     
     var startFrom = ""
     private var needClearNews = true
     private var isLoad = false
+
+    private var newsAdapter = NewsAdapter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +35,7 @@ class NewsViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         
     }
-    
-    
+
     private func setObserver() {
         let nextFromNotification = Notification.Name("nextFromNotification")
         NotificationCenter.default.addObserver(self, selector: #selector(updateNextFrom(notification:)), name: nextFromNotification, object: nil)
@@ -53,7 +52,12 @@ class NewsViewController: UIViewController {
     private func prepareGetFeeds(needClearNews: Bool) {
         isLoad = true
         self.needClearNews = needClearNews
-        AlamofireService.instance.getNews(startFrom: needClearNews ? "":startFrom, delegate: self)
+        
+        newsAdapter.getNews(startFrom: needClearNews ? "":startFrom, completion: {[weak self] results in
+            self?.returnFeeds(results)
+        })
+
+        //AlamofireService.instance.getNews(startFrom: needClearNews ? "":startFrom, delegate: self)
     }
     
     
@@ -89,8 +93,6 @@ class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
     }
@@ -101,22 +103,19 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         return cell
     }
-    
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "showFeedInfo", sender: indexPath.row)
     }
-    
-    
+
     open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == feeds.count - 2 && !isLoad {
             
             prepareGetFeeds(needClearNews: false)
         }
     }
-    
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         textHeight = feeds[indexPath.row].feedText.count > 0 ? 70 : 0
@@ -138,16 +137,6 @@ extension NewsViewController: NewsTableViewCellDelegate {
 extension NewsViewController: VkApiFeedsDelegate {
     
     func returnFeeds(_ feeds: [VkFeed]) {
-//        DispatchQueue.main.async {
-//            self.refreshControl.endRefreshing()
-//            self.isLoad = false
-//            if self.needClearNews {
-//                self.feeds.removeAll()
-//                self.tableView.reloadData()
-//            }
-//            self.feeds.append(contentsOf: feeds)
-//            self.tableView.reloadData()
-//        }
         self.refreshControl.endRefreshing()
         isLoad = false
         if needClearNews {
@@ -156,10 +145,7 @@ extension NewsViewController: VkApiFeedsDelegate {
         }
         self.feeds.append(contentsOf: feeds)
         tableView.reloadData()
-        //        self.addNewCells(array: feeds)
-
     }
-    
     
     private func addNewCells(array: [VkFeed]) {
         if (array.count > 0) {

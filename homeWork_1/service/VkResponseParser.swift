@@ -173,7 +173,6 @@ class VkResponseParser {
         switch result {
         case .success(let value):
             let json = JSON(value)
-            print ("parseNews: \(json)")
             if let nextFrom = json["response"]["next_from"].string {
                 NotificationCenter.default.post(name: nextFromNotification, object: nil, userInfo: ["nextFrom": nextFrom])
             }

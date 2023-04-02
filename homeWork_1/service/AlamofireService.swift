@@ -46,7 +46,7 @@ class AlamofireService {
     private init(){}
     
     
-    // //Друзья
+    //MARK: Друзья
     func getFriends(delegate: VkApiFriendsDelegate) {
         let method = "friends.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
@@ -63,13 +63,11 @@ class AlamofireService {
                 DispatchQueue.main.async {
                     delegate.returnFriends(friends)
                 }
-                
-                
         }
     }
     
     
-    // //Группы
+    //MARK: Группы
     func getGroups(delegate: VkApiGroupsDelegate) {
         let method = "groups.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -91,7 +89,7 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Выйти из группы
     func leaveGroup(gid: Int, delegate: VkApiGroupsDelegate) {
         let method = "groups.leave"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -111,7 +109,7 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Присоединиться к группе
     func joinGroup(gid: Int, delegate: VkApiGroupsDelegate) {
         let method = "groups.join"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -132,7 +130,7 @@ class AlamofireService {
     }
     
     
-    // //Группы Поиск
+    //MARK: Группы Поиск
     func searchGroups(search: String, delegate: VkApiGroupsDelegate) {
         let method = "groups.search"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -153,7 +151,7 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Получение фотографий
     func getPhotos(delegate: VkApiPhotosDelegate) {
         let method = "photos.getAll"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -163,7 +161,6 @@ class AlamofireService {
             "extended": "1",
             "count":"100",
             "v": "5.131"
-            
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -176,6 +173,7 @@ class AlamofireService {
         }
     }
     
+    //MARK: Получение фотографий по ID
     func getPhotosBy(_ id: Int, delegate: VkApiPhotosDelegate) {
         let method = "photos.getAll"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -199,7 +197,7 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Получение новостей с делегатом
     func getNews(startFrom: String, delegate: VkApiFeedsDelegate) {
         let method = "newsfeed.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
@@ -221,7 +219,34 @@ class AlamofireService {
         }
     }
     
+    //MARK: Получение новостей с сохранением в Realm
+    func getNews(startFrom: String) {
+        let method = "newsfeed.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "filters": "post",
+            "v": "5.131",
+            "count":"20",
+            "start_from":"\(startFrom)"
+            //            "end_time":"\(1)"
+        ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+                let feeds = VkResponseParser.instance.parseNews(result: response.result)
+                
+                var realmFeed = feeds.compactMap({ VkFeedRealm( sourceId: $0.sourceId, sourceUrl: $0.sourceUrl, sourceName: $0.sourceName, feedId: $0.feedId, feedText: $0.feedText, feedDate: $0.feedDate,
+                    attachments: $0.attachments, countLikes: $0.countLikes,
+                    countViews: $0.countViews, countReposts: $0.countReposts,
+                    countComments: $0.countComments, isLiked: $0.isLiked
+                    )
+                                                })
+                RealmWorker.saveNewsToRealm(news: realmFeed)
+        }
+    }
     
+    //MARK: Получение комментариев
     func getComments(ownerId: Int, postId: Int, delegate: VkApiCommentsDelegate) {
         //delegate: VkApiFeedsDelegate) {
         let method = "wall.getComments"
