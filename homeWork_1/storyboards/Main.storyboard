@@ -25,6 +25,7 @@
                                     <segment title="Мои"/>
                                     <segment title="Поиск"/>
                                 </segments>
+                                <color key="selectedSegmentTintColor" red="0.99514524940000004" green="1" blue="0.84047391979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="segmentControlDidChanged:" destination="r0Q-G3-6hu" eventType="valueChanged" id="D01-OT-Lkb"/>
                                 </connections>

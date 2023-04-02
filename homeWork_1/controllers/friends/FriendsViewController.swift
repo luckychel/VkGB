@@ -29,14 +29,11 @@ class FriendsViewController: UIViewController {
     private var filteredGroupedFriends = [FriendList]()
     
     private var friends = [VkFriend]()
+    private var friendsViewModel = [FriendViewModel]()
     
     private let friendsApapter = FriendsAdapter()
+    private let factory = FriendViewModelFactory()
     
-    //неюзаемая штука для показа возможностей
-    //private var friends: Results<VkFriend>?
-    //private var notificationTokenGroups: NotificationToken?
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableViewSettings()
@@ -58,6 +55,8 @@ class FriendsViewController: UIViewController {
     private func setGroupedFriend(_ friends: [VkFriend]) {
         GlobalConstants.titles.removeAll()
         var groupedFriend = FriendList()
+        
+        //self.friendsViewModel = factory.constructViewModels(friends: friends)
 
         for friend in friends {
             //last_name->full_name
@@ -94,34 +93,13 @@ extension FriendsViewController {
     
     //MARK: - Network funcs
     private func getFriends() {
-    
-//        friends = RealmWorker.instance.getItems(VkFriend.self)?.sorted(byKeyPath: "first_name").sorted(byKeyPath: "last_name")
-//
-//        notificationTokenGroups = friends?.observe { changes in
-//            print("friendObserver is work")
-//            switch changes {
-//            case .initial( _)://let collection
-//                self.migrateFriends()
-//            case .update(_, _, _, _):
-//                //(let collection, let deletions, let insertions, let modifications):
-//                    self.migrateFriends()
-//            case .error(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//        AlamofireService.instance.getFriends(delegate: self)
+        AlamofireService.instance.getFriends(delegate: self)
         
         friendsApapter.getFriends {[weak self] result in
             guard let self = self else { return }
             self.returnFriends(result)
         }
     }
-    
-//    private func migrateFriends() {
-//        setGroupedFriend()
-//        tableView.reloadData()
-//    }
-    
 }
 
 extension FriendsViewController {
@@ -177,7 +155,6 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         customControll.isHidden = searchActive
-//        return groupedFriends.count
         return searchActive ? filteredGroupedFriends.count : groupedFriends.count
     }
     
@@ -195,7 +172,8 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath) as! FriendTableViewCell
         let friend = searchActive ? filteredGroupedFriends[indexPath.section].friends[indexPath.row] : groupedFriends[indexPath.section].friends[indexPath.row]
-        cell.loadData(friend: friend)
+        var viewModel = factory.viewModel(friend: friend)
+        cell.configure(friend: viewModel)
         return cell
     }
     

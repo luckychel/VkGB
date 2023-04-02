@@ -15,7 +15,7 @@ class SearchGroupViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var groups = [VkGroup]()
-    
+    private var groupsViewModel = [GroupViewModel]()
     var searchActive = false
     
     var selectedRow = -1
@@ -87,7 +87,7 @@ extension SearchGroupViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupCell
-        let group = groups[indexPath.row]
+        let group = groupsViewModel[indexPath.row]
         cell.load(group)
         return cell
     }
@@ -183,6 +183,7 @@ extension SearchGroupViewController: VkApiGroupsDelegate {
     func returnGroups(_ groups: [VkGroup]) {
         self.groups.removeAll()
         self.groups = groups
+        self.groupsViewModel = GroupViewModelFactory().constructViewModels(groups: groups)
         tableView.reloadData()
     }
     
