@@ -36,7 +36,6 @@ class CustomSearchBar: UIView {
         
         buttonCancel.setTitle("Отмена", for: .normal)
         buttonCancel.setTitleColor(UIColor.white, for: .normal)
-//        buttonCancel.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         buttonCancel.backgroundColor = UIColor.red
         buttonCancel.cornerRadius = 5
         

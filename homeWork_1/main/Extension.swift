@@ -142,6 +142,12 @@ extension UIColor {
     }
 }
 
+extension UIFont {
+    static let HelveticaNeue = UIFont(name: "HelveticaNeue", size: 17) ?? UIFont()
+    static let HelveticaNeueMedium = UIFont(name: "HelveticaNeue-Medium", size: 17) ?? UIFont()
+}
+
+
 
 extension CGFloat {
     func toRadians() -> CGFloat {
