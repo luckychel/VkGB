@@ -47,7 +47,23 @@ final class GroupAdapter {
                 print(err)
             }
         }
-        AlamofireService.instance.getGroups()
+        let groupsServiceProxy = GroupServiceProxy()
+        groupsServiceProxy.getGroups()
+        //AlamofireService.instance.getGroups()
     }
    
+}
+
+protocol GroupServiceInterface {
+    func getGroups()
+}
+
+class GroupServiceProxy: GroupServiceInterface {
+
+    let alamofireService = AlamofireService.instance
+    
+    func getGroups() {
+        self.alamofireService.getGroups()
+        print("called func getGroups")
+    }
 }

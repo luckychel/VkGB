@@ -128,6 +128,7 @@ extension GroupsViewController {
     
     private func getMyGroups() {
         //AlamofireService.instance.getGroups(delegate: self)
+        
         groupAdapter.getGroups {[weak self] result in
             guard let self = self else {
                 return

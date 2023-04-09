@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5DC3809695F037A6B111CF13 /* Pods_homeWork_1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB03EE607AE3B19FD932EA7A /* Pods_homeWork_1.framework */; };
+		81125F7A29E35ABB00F83D0E /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81125F7929E35ABB00F83D0E /* WebRequest.swift */; };
+		81125F7C29E35AE400F83D0E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81125F7B29E35AE400F83D0E /* NetworkManager.swift */; };
 		81D9827529DA31E30056CE1D /* FriendsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827429DA31E30056CE1D /* FriendsAdapter.swift */; };
 		81D9827829DA3A260056CE1D /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827729DA3A260056CE1D /* GroupViewModel.swift */; };
 		81D9827B29DA3A470056CE1D /* GroupViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827A29DA3A470056CE1D /* GroupViewModelFactory.swift */; };
@@ -71,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81125F7929E35ABB00F83D0E /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
+		81125F7B29E35AE400F83D0E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		81D9827429DA31E30056CE1D /* FriendsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAdapter.swift; sourceTree = "<group>"; };
 		81D9827729DA3A260056CE1D /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		81D9827A29DA3A470056CE1D /* GroupViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModelFactory.swift; sourceTree = "<group>"; };
@@ -156,6 +160,15 @@
 				FB03EE607AE3B19FD932EA7A /* Pods_homeWork_1.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81125F7829E35A7900F83D0E /* networkManager */ = {
+			isa = PBXGroup;
+			children = (
+				81125F7929E35ABB00F83D0E /* WebRequest.swift */,
+				81125F7B29E35AE400F83D0E /* NetworkManager.swift */,
+			);
+			path = networkManager;
 			sourceTree = "<group>";
 		};
 		81D9827629DA39B20056CE1D /* factory */ = {
@@ -329,6 +342,7 @@
 				81E44C9029D9F77500AC03A9 /* adapters */,
 				81D9827629DA39B20056CE1D /* factory */,
 				AA5766D62160A6F90029F786 /* storyboards */,
+				81125F7829E35A7900F83D0E /* networkManager */,
 				AA5766CF2160A5AF0029F786 /* Info.plist */,
 			);
 			path = homeWork_1;
@@ -610,6 +624,7 @@
 				8424E55E21774C8F00188E61 /* CustomUnwindSegue.swift in Sources */,
 				8424E5512176E7D900188E61 /* CustomSegue.swift in Sources */,
 				AA5766F02160D82B0029F786 /* FriendList.swift in Sources */,
+				81125F7A29E35ABB00F83D0E /* WebRequest.swift in Sources */,
 				84EC564A21A2A2DB00C8542C /* VkFeed.swift in Sources */,
 				8424E55C2177401700188E61 /* CustomNavigationController.swift in Sources */,
 				81D9828029DA439F0056CE1D /* FriendViewModelFactory.swift in Sources */,
@@ -636,6 +651,7 @@
 				AA5766FD2160F0C10029F786 /* NewsViewController.swift in Sources */,
 				AA5766E32160AD140029F786 /* Extension.swift in Sources */,
 				81E44C9229D9F79E00AC03A9 /* NewsAdapter.swift in Sources */,
+				81125F7C29E35AE400F83D0E /* NetworkManager.swift in Sources */,
 				8424E55521773EDC00188E61 /* CustomPopAnimator.swift in Sources */,
 				84D1DEC221AE8CFD006FC20E /* VkComment.swift in Sources */,
 				AA5766F52160DEC40029F786 /* CustomControl.swift in Sources */,

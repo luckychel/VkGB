@@ -46,7 +46,23 @@ final class FriendsAdapter {
                 print(err)
             }
         }
-        AlamofireService.instance.getFriends()
+        let friendsServiceProxy = FriendServiceProxy()
+        friendsServiceProxy.getFriends()
+        //AlamofireService.instance.getFriends()
     }
    
+}
+
+protocol FriendServiceInterface {
+    func getFriends()
+}
+
+class FriendServiceProxy: FriendServiceInterface {
+
+    let alamofireService = AlamofireService.instance
+    
+    func getFriends() {
+        self.alamofireService.getFriends()
+        print("called func getFriends")
+    }
 }

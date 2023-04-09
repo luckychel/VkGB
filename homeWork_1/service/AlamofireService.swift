@@ -40,11 +40,11 @@ protocol VkApiCommentsDelegate {
 }
 
 
-class AlamofireService {
+public class AlamofireService: AlamofireServiceProxy {
     
     static let instance = AlamofireService()
-    private init(){}
     
+    private override init(){}
     
     //MARK: Друзья с делегатом
     func getFriends(delegate: VkApiFriendsDelegate) {
@@ -141,7 +141,7 @@ class AlamofireService {
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
-            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)){ response in
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
                 let parseValid = VkResponseParser.instance
                     .parseJoinLeaveGroup(result: response.result)
                 DispatchQueue.main.async {
@@ -315,5 +315,15 @@ class AlamofireService {
         }
     }
     
+}
+
+protocol AlamofireServiceInterface {
+    func printLog(_ message: String)
+}
+
+public class AlamofireServiceProxy: AlamofireServiceInterface {
+    func printLog(_ message: String) {
+        print(message)
+    }
 }
 

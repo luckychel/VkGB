@@ -93,7 +93,7 @@ extension FriendsViewController {
     
     //MARK: - Network funcs
     private func getFriends() {
-        AlamofireService.instance.getFriends(delegate: self)
+        //AlamofireService.instance.getFriends(delegate: self)
         
         friendsApapter.getFriends {[weak self] result in
             guard let self = self else { return }

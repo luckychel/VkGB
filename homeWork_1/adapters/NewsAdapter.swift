@@ -48,7 +48,9 @@ final class NewsAdapter {
                 print(err)
             }
         }
-        AlamofireService.instance.getNews(startFrom: startFrom)
+        let newsServiceProxy = NewsServiceProxy()
+        newsServiceProxy.getNews(startFrom: startFrom)
+        //AlamofireService.instance.getNews(startFrom: startFrom)
     }
     
     private func convertRealmVkFeedToVkFeed(_ rlmVkFeed: VkFeedRealm) -> VkFeed {
@@ -72,5 +74,19 @@ final class NewsAdapter {
         vk.countComments = rlmVkFeed.countComments
         vk.isLiked = rlmVkFeed.isLiked
         return vk
+    }
+}
+
+protocol NewsServiceInterface {
+    func getNews(startFrom: String)
+}
+
+class NewsServiceProxy: NewsServiceInterface {
+
+    let alamofireService = AlamofireService.instance
+    
+    func getNews(startFrom: String) {
+        self.alamofireService.getNews(startFrom: startFrom)
+        print("called func getNews with startFrom=\(startFrom)")
     }
 }
