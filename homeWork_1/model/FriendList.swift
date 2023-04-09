@@ -9,7 +9,7 @@
 import Foundation
 
 class FriendList {
-    
     var title = ""
     var friends = [VkFriend]()
+    var friendsViewModel = [FriendViewModel]()
 }

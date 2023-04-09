@@ -28,12 +28,9 @@ class MainGroupViewController: UIViewController {
         return vc as! SearchGroupViewController
     }()
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,11 +45,11 @@ class MainGroupViewController: UIViewController {
     
     
     private func setSegmentedControlSettings() {
-        segmentedControl.backgroundColor = UIColor.vkColor.main
+        segmentedControl.backgroundColor = UIColor.vkColor
         segmentedControl.tintColor = .clear
         
-        let fontNormal = UIFont(name: "HelveticaNeue", size: 17) ?? UIFont()
-        let fontSelect = UIFont(name: "HelveticaNeue-Medium", size: 17) ?? UIFont()
+        let fontNormal = UIFont.HelveticaNeue
+        let fontSelect = UIFont.HelveticaNeueMedium
     
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font: fontNormal,
@@ -65,8 +62,6 @@ class MainGroupViewController: UIViewController {
             ], for: .selected)
         
     }
-    
-    
     
     @IBAction func segmentControlDidChanged(_ sender: Any) {
         if currentSegment != segmentedControl.selectedSegmentIndex {
@@ -83,12 +78,6 @@ class MainGroupViewController: UIViewController {
             }
         }
     }
-    
-    
-
-    
-    
-
 }
 
 //MARK: - Work with ContainerView
@@ -102,15 +91,8 @@ extension MainGroupViewController {
         
         childViewController.view.frame = CGRect(x: 0, y: 0, width: containerGroups.frame.width, height: containerGroups.frame.height)//containerGroups.frame
         
-
-        //        childViewController.didMove(toParentViewController: self)
         containerGroups.addSubview(childViewController.view)
-//        NSLayoutConstraint.activate([
-//            childViewController.view.leadingAnchor.constraint(equalTo: containerGroups.leadingAnchor),
-//            childViewController.view.trailingAnchor.constraint(equalTo: containerGroups.trailingAnchor),
-//            childViewController.view.topAnchor.constraint(equalTo: containerGroups.topAnchor),
-//            childViewController.view.bottomAnchor.constraint(equalTo: containerGroups.bottomAnchor)])
-        
+
     }
     
 }

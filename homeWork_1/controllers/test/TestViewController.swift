@@ -11,22 +11,14 @@ import PinLayout
 
 
 class TestViewController: UIViewController {
-    
-    
-    
+
     @IBOutlet weak var labelHeader: UILabel!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
-
-        // Do any additional setup after loading the view.
     }
-    
-    
-    
-    
+
     private func setLayout() {
         let padding: CGFloat = 10
         labelHeader.pin.top(80).left(padding).right(padding)//topLeft(padding).right(padding)

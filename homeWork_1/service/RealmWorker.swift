@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 
-
 class RealmWorker {
     
     static let instance = RealmWorker()
@@ -17,12 +16,23 @@ class RealmWorker {
     
     static var configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
     
+    //MARK: получение объекта realm
+    func getRealm() -> Realm? {
+        
+        var realm: Realm?
+        do {
+            realm = try Realm()
+        } catch {
+            print(error)
+        }
+        return realm
+
+    }
     
     func saveItems<Element: Object>(items: [Element], needMigrate: Bool = false, needUpdate: Bool = true) -> Realm? {
         
         do {
-            let config = Realm.Configuration(deleteRealmIfMigrationNeeded: needMigrate)
-            let realm = try Realm(configuration: config)
+            let realm = try Realm(configuration: RealmWorker.configuration)
             try realm.write {
                 realm.add(items)
             }
@@ -52,37 +62,52 @@ class RealmWorker {
     
     
     func saveFriends(_ friends: [VkFriend]) {
-        if friends.count > 0 {
-            do {
-                Realm.Configuration.defaultConfiguration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.add(friends)
-                try realm.commitWrite()
-                
-            } catch {
-                print("Realm saveFriends error: \(error)")
-            }
-        } else {
-             print("Realm saveFriends error: Empty friends List")
+        guard friends.count > 0 else {
+            print("saveFriends ToRealm error: Empty news List")
+            return
         }
+        
+        guard let realm = RealmWorker.instance.getRealm() else { return }
+        
+        do {
+            let oldGroups = realm.objects(VkFriend.self)
+            realm.beginWrite()
+            realm.delete(oldGroups)
+            try realm.commitWrite()
+            
+        } catch {
+            print("saveFriends To Realm error: \(error)")
+        }
+        
+        try! realm.write({
+            realm.add(friends)
+        })
     }
     
     
     func saveGroups(_ groups: [VkGroup]) {
-        if groups.count > 0 {
-            do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.add(groups)
-                try realm.commitWrite()
-                
-            } catch {
-                print("Realm saveGroups error: \(error)")
-            }
-        } else {
-             print("Realm saveGroups error: Empty groups List")
+
+        guard groups.count > 0 else {
+            print("saveGroups ToRealm error: Empty news List")
+            return
         }
+        
+        guard let realm = RealmWorker.instance.getRealm() else { return }
+        
+        do {
+            let oldGroups = realm.objects(VkGroup.self)
+            realm.beginWrite()
+            realm.delete(oldGroups)
+            try realm.commitWrite()
+            
+        } catch {
+            print("saveGroups To Realm error: \(error)")
+        }
+        
+        try! realm.write({
+            realm.add(groups)
+        })
+        
     }
     
     func savePhotos(_ photos: [VkPhoto]) {
@@ -159,5 +184,45 @@ class RealmWorker {
         }
         return myPhotos
     }
+    
+    
+    func saveNewsToRealm(news: [VkFeedRealm]) {
+        
+        guard news.count > 0 else {
+            print("SaveNews To Realm error: Empty news List")
+            return
+        }
+        
+        guard let realm = RealmWorker.instance.getRealm() else { return }
+        
+        do {
+            let oldGroups = realm.objects(VkFeedRealm.self)
+            realm.beginWrite()
+            realm.delete(oldGroups)
+            try realm.commitWrite()
+            
+        } catch {
+            print("SaveNews To Realm error: \(error)")
+        }
+        
+        try! realm.write({
+            realm.add(news)
+        })
+    }
+    
+    func getNewsFromRealm() -> [VkFeedRealm] {
+        var news = [VkFeedRealm]()
+        do {
+            let realm = try Realm()
+            let phs = realm.objects(VkFeedRealm.self)
+            for ph in phs {
+                news.append(ph)
+            }
+        } catch {
+            print("GetNews From Realm error: \(error)")
+        }
+        return news
+    }
+    
     
 }

@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		5DC3809695F037A6B111CF13 /* Pods_homeWork_1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB03EE607AE3B19FD932EA7A /* Pods_homeWork_1.framework */; };
+		81125F7A29E35ABB00F83D0E /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81125F7929E35ABB00F83D0E /* WebRequest.swift */; };
+		81125F7C29E35AE400F83D0E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81125F7B29E35AE400F83D0E /* NetworkManager.swift */; };
+		81D9827529DA31E30056CE1D /* FriendsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827429DA31E30056CE1D /* FriendsAdapter.swift */; };
+		81D9827829DA3A260056CE1D /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827729DA3A260056CE1D /* GroupViewModel.swift */; };
+		81D9827B29DA3A470056CE1D /* GroupViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827A29DA3A470056CE1D /* GroupViewModelFactory.swift */; };
+		81D9827E29DA438C0056CE1D /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827D29DA438C0056CE1D /* FriendViewModel.swift */; };
+		81D9828029DA439F0056CE1D /* FriendViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D9827F29DA439F0056CE1D /* FriendViewModelFactory.swift */; };
+		81E44C9229D9F79E00AC03A9 /* NewsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */; };
+		81E44C9829DA1B4700AC03A9 /* GroupAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */; };
+		81E44C9A29DA1FEF00AC03A9 /* VkFeedRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */; };
 		840110E021EC364C0044AEB7 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840110DF21EC364C0044AEB7 /* TestViewController.swift */; };
 		84105FB3217F173D00EEF673 /* VKApiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84105FB2217F173D00EEF673 /* VKApiViewController.swift */; };
 		8415662D21B7916500AF9803 /* SearchGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415662C21B7916500AF9803 /* SearchGroupViewController.swift */; };
@@ -63,6 +73,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81125F7929E35ABB00F83D0E /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
+		81125F7B29E35AE400F83D0E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		81D9827429DA31E30056CE1D /* FriendsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAdapter.swift; sourceTree = "<group>"; };
+		81D9827729DA3A260056CE1D /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		81D9827A29DA3A470056CE1D /* GroupViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModelFactory.swift; sourceTree = "<group>"; };
+		81D9827D29DA438C0056CE1D /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+		81D9827F29DA439F0056CE1D /* FriendViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModelFactory.swift; sourceTree = "<group>"; };
+		81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAdapter.swift; sourceTree = "<group>"; };
+		81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAdapter.swift; sourceTree = "<group>"; };
+		81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkFeedRealm.swift; sourceTree = "<group>"; };
 		840110DF21EC364C0044AEB7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		84105FB2217F173D00EEF673 /* VKApiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApiViewController.swift; sourceTree = "<group>"; };
 		8415662C21B7916500AF9803 /* SearchGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +162,52 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		81125F7829E35A7900F83D0E /* networkManager */ = {
+			isa = PBXGroup;
+			children = (
+				81125F7929E35ABB00F83D0E /* WebRequest.swift */,
+				81125F7B29E35AE400F83D0E /* NetworkManager.swift */,
+			);
+			path = networkManager;
+			sourceTree = "<group>";
+		};
+		81D9827629DA39B20056CE1D /* factory */ = {
+			isa = PBXGroup;
+			children = (
+				81D9827C29DA42DF0056CE1D /* friends */,
+				81D9827929DA3A320056CE1D /* groups */,
+			);
+			path = factory;
+			sourceTree = "<group>";
+		};
+		81D9827929DA3A320056CE1D /* groups */ = {
+			isa = PBXGroup;
+			children = (
+				81D9827729DA3A260056CE1D /* GroupViewModel.swift */,
+				81D9827A29DA3A470056CE1D /* GroupViewModelFactory.swift */,
+			);
+			path = groups;
+			sourceTree = "<group>";
+		};
+		81D9827C29DA42DF0056CE1D /* friends */ = {
+			isa = PBXGroup;
+			children = (
+				81D9827D29DA438C0056CE1D /* FriendViewModel.swift */,
+				81D9827F29DA439F0056CE1D /* FriendViewModelFactory.swift */,
+			);
+			path = friends;
+			sourceTree = "<group>";
+		};
+		81E44C9029D9F77500AC03A9 /* adapters */ = {
+			isa = PBXGroup;
+			children = (
+				81E44C9129D9F79E00AC03A9 /* NewsAdapter.swift */,
+				81E44C9729DA1B4700AC03A9 /* GroupAdapter.swift */,
+				81D9827429DA31E30056CE1D /* FriendsAdapter.swift */,
+			);
+			path = adapters;
+			sourceTree = "<group>";
+		};
 		840110DE21EC36150044AEB7 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +225,7 @@
 				84EC564921A2A2DA00C8542C /* VkFeed.swift */,
 				84D1DEC121AE8CFD006FC20E /* VkComment.swift */,
 				84D1DEBF21AE8AB9006FC20E /* VkCommentProfile.swift */,
+				81E44C9929DA1FEF00AC03A9 /* VkFeedRealm.swift */,
 			);
 			path = vk;
 			sourceTree = "<group>";
@@ -272,7 +339,10 @@
 				AA5766D52160A6EC0029F786 /* main */,
 				AA5766E42160AD630029F786 /* model */,
 				84D1DEB821AD5F16006FC20E /* service */,
+				81E44C9029D9F77500AC03A9 /* adapters */,
+				81D9827629DA39B20056CE1D /* factory */,
 				AA5766D62160A6F90029F786 /* storyboards */,
+				81125F7829E35A7900F83D0E /* networkManager */,
 				AA5766CF2160A5AF0029F786 /* Info.plist */,
 			);
 			path = homeWork_1;
@@ -444,7 +514,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 1420;
-				ORGANIZATIONNAME = "Марат Нургалиев";
+				ORGANIZATIONNAME = "Кукоба Александр";
 				TargetAttributes = {
 					AA5766BF2160A5AD0029F786 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -530,16 +600,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5766F22160DBA70029F786 /* FriendHeaderTableViewCell.swift in Sources */,
+				81D9827529DA31E30056CE1D /* FriendsAdapter.swift in Sources */,
 				AA5766EE2160CB9C0029F786 /* FriendCollectionViewCell.swift in Sources */,
 				842A0408216DB83F00FAFF92 /* CustomSearchBar.swift in Sources */,
 				8442ABAB2192EC0E003DDA6A /* VkResponseParser.swift in Sources */,
 				AA3D1EB121B25109000ED1C1 /* FirebaseService.swift in Sources */,
 				842A03E0216C860000FAFF92 /* CustomIndicator.swift in Sources */,
+				81D9827B29DA3A470056CE1D /* GroupViewModelFactory.swift in Sources */,
 				8415662D21B7916500AF9803 /* SearchGroupViewController.swift in Sources */,
 				84D1DEC021AE8AB9006FC20E /* VkCommentProfile.swift in Sources */,
+				81E44C9A29DA1FEF00AC03A9 /* VkFeedRealm.swift in Sources */,
 				84A74D8321EDC12900AE5A76 /* NewsTableViewCell.swift in Sources */,
 				844ACE352186BFC500565895 /* VkFriend.swift in Sources */,
 				8415662F21B7918C00AF9803 /* MainGroupViewController.swift in Sources */,
+				81E44C9829DA1B4700AC03A9 /* GroupAdapter.swift in Sources */,
 				8442AB9721870B13003DDA6A /* VkPhoto.swift in Sources */,
 				84C1209B2161C6ED0044CBEB /* MyGroupCell.swift in Sources */,
 				AA5766D92160A72F0029F786 /* LoginViewController.swift in Sources */,
@@ -550,8 +624,10 @@
 				8424E55E21774C8F00188E61 /* CustomUnwindSegue.swift in Sources */,
 				8424E5512176E7D900188E61 /* CustomSegue.swift in Sources */,
 				AA5766F02160D82B0029F786 /* FriendList.swift in Sources */,
+				81125F7A29E35ABB00F83D0E /* WebRequest.swift in Sources */,
 				84EC564A21A2A2DB00C8542C /* VkFeed.swift in Sources */,
 				8424E55C2177401700188E61 /* CustomNavigationController.swift in Sources */,
+				81D9828029DA439F0056CE1D /* FriendViewModelFactory.swift in Sources */,
 				AA5766FA2160EFE50029F786 /* NewsTableViewCellOld.swift in Sources */,
 				8442ABB021957D2D003DDA6A /* RealmWorker.swift in Sources */,
 				AA5766EC2160B5A10029F786 /* FriendInfoViewController.swift in Sources */,
@@ -567,11 +643,15 @@
 				AA5766EA2160AE950029F786 /* FriendTableViewCell.swift in Sources */,
 				8424E54921743AA200188E61 /* ImagesViewController.swift in Sources */,
 				AA5766C42160A5AD0029F786 /* AppDelegate.swift in Sources */,
+				81D9827829DA3A260056CE1D /* GroupViewModel.swift in Sources */,
 				84D1DEBC21AE624A006FC20E /* NewsInfoViewController.swift in Sources */,
 				8442ABA9219132B7003DDA6A /* AlamofireService.swift in Sources */,
 				84C120962161C5AD0044CBEB /* GroupsViewController.swift in Sources */,
+				81D9827E29DA438C0056CE1D /* FriendViewModel.swift in Sources */,
 				AA5766FD2160F0C10029F786 /* NewsViewController.swift in Sources */,
 				AA5766E32160AD140029F786 /* Extension.swift in Sources */,
+				81E44C9229D9F79E00AC03A9 /* NewsAdapter.swift in Sources */,
+				81125F7C29E35AE400F83D0E /* NetworkManager.swift in Sources */,
 				8424E55521773EDC00188E61 /* CustomPopAnimator.swift in Sources */,
 				84D1DEC221AE8CFD006FC20E /* VkComment.swift in Sources */,
 				AA5766F52160DEC40029F786 /* CustomControl.swift in Sources */,

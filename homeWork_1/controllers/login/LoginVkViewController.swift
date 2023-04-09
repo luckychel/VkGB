@@ -17,7 +17,6 @@ class LoginVkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testSort()
         loadVK()
         setCustoms()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -25,34 +24,10 @@ class LoginVkViewController: UIViewController {
         }
     }
     
-    
-    private func testSort() {
-        var arr = [TestClass]()
-        arr.append(TestClass(id: 0, name: ""))
-        arr.append(TestClass(id: 1, name: "Tree"))
-        arr.append(TestClass(id: 2, name: " "))
-        arr.append(TestClass(id: 3, name: "home"))
-        arr = arr.sorted(by: { $0.name.lowercased() < $1.name.lowercased()})
-        for row in arr {
-            print ("\(row.id) \(row.name)\n")
-        }
-    }
-    
-    class TestClass {
-        var id = -1
-        var name = ""
-        
-        init(id: Int, name: String) {
-            self.id = id
-            self.name = name
-        }
-    }
-    
-    
     private func setCustoms() {
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.tintColor = UIColor.white
-        navigationBarAppearance.barTintColor = UIColor.vkColor.main
+        navigationBarAppearance.barTintColor = UIColor.vkColor
     }
     
     

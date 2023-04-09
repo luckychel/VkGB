@@ -110,10 +110,44 @@ struct GlobalConstants {
 
 
 extension UIColor {
-    struct vkColor {
-        static let main = UIColor.init(red: 65/255, green: 107/255, blue: 158/255, alpha: 1)
+    
+    static let vkColor = UIColor(red: 65/255, green: 107/255, blue: 158/255, alpha: 1)
+    
+    private static var colorsCache: [String: UIColor] = [:]
+    
+    public static func rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat) -> UIColor {
+
+        let key = "\(r)\(g)\(b)\(a)"
+
+        if let cachedColor = self.colorsCache[key] {
+            return cachedColor
+        }
+        
+        self.clearColorsCacheIfNeeded()
+        
+        let color = UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+
+        self.colorsCache[key] = color
+        
+        return color
+    }
+        
+    private static func clearColorsCacheIfNeeded() {
+
+        let maxObjectsCount = 100
+        
+        guard self.colorsCache.count > maxObjectsCount else { return }
+        
+        colorsCache = [:]
     }
 }
+
+extension UIFont {
+    static let HelveticaNeue = UIFont(name: "HelveticaNeue", size: 17) ?? UIFont()
+    static let HelveticaNeueMedium = UIFont(name: "HelveticaNeue-Medium", size: 17) ?? UIFont()
+}
+
+
 
 extension CGFloat {
     func toRadians() -> CGFloat {

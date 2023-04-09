@@ -13,13 +13,11 @@ class VkFeed {
     var sourceId = -1
     var sourceUrl = ""
     var sourceName = ""
-    
-    
+
     var feedId = -1
     var feedText = ""
     var feedDate = -1
-    
-    
+
     var attachments = [VkAttachment]()
     
     var countLikes = 0
@@ -75,3 +73,6 @@ class VkAttachment { //only photo
     var width = 0
     var height = 0
 }
+
+
+

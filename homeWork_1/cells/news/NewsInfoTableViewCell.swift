@@ -86,9 +86,6 @@ class NewsInfoTableViewCell: UITableViewCell {
         setTaps()
     }
     
-    
-    
-    
     private func setTaps() {
         let imageTap = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(_:)))
         imageNew.addGestureRecognizer(imageTap)
