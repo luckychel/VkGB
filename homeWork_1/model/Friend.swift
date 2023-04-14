@@ -12,7 +12,6 @@ class Friend {
     
     var firstName = ""
     var lastName = ""
-    
     var imageAva: UIImage?
     var images = [UIImage]()
 }

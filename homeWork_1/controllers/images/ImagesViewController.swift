@@ -47,7 +47,8 @@ class ImagesViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barTintColor = UIColor.black
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = UIColor.vkColor
     }
 
     

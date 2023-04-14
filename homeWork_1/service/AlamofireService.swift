@@ -46,14 +46,14 @@ class AlamofireService {
     private init(){}
     
     
-    // //Друзья
+    //MARK: Друзья с делегатом
     func getFriends(delegate: VkApiFriendsDelegate) {
         let method = "friends.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
         let params: Parameters = [
             "access_token": Session.instance.token,
             "fields": "id,nickname,photo_100,status",
-            "v": "3.0",
+            "v": "5.131"
             ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -63,13 +63,30 @@ class AlamofireService {
                 DispatchQueue.main.async {
                     delegate.returnFriends(friends)
                 }
-                
-                
         }
     }
     
+    //MARK: Друзья без делегата
+    func getFriends() {
+        let method = "friends.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "fields": "id,nickname,photo_100,status",
+            "v": "5.131"
+            ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+                
+                let friends = VkResponseParser.instance.parseFriends(result: response.result)
+
+                RealmWorker.instance.saveFriends(friends)
+
+        }
+    }
     
-    // //Группы
+    //MARK: Группы с делегатом
     func getGroups(delegate: VkApiGroupsDelegate) {
         let method = "groups.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -77,8 +94,8 @@ class AlamofireService {
             "access_token": Session.instance.token,
             "fields": "id,name",
             "extended": "1",
-            "v": "3.0",
-            "count":"100"
+            "count":"100",
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -91,14 +108,36 @@ class AlamofireService {
         }
     }
     
+    //MARK: Группы без делегата
+    func getGroups() {
+        let method = "groups.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "fields": "id,name",
+            "extended": "1",
+            "count":"100",
+            "v": "5.131"
+        ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+        
+            let groups = VkResponseParser.instance.parseGroups(result: response.result, isSearched: false)
+                
+            RealmWorker.instance.saveGroups(groups)
+                
+        }
+    }
     
+    //MARK: Выйти из группы
     func leaveGroup(gid: Int, delegate: VkApiGroupsDelegate) {
         let method = "groups.leave"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
         let params: Parameters = [
             "access_token": Session.instance.token,
             "group_id": "\(gid)",
-            "v": "3.0"
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -111,14 +150,14 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Присоединиться к группе
     func joinGroup(gid: Int, delegate: VkApiGroupsDelegate) {
         let method = "groups.join"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
         let params: Parameters = [
             "access_token": Session.instance.token,
             "group_id": "\(gid)",
-            "v": "3.0"
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -132,7 +171,7 @@ class AlamofireService {
     }
     
     
-    // //Группы Поиск
+    //MARK: Группы Поиск
     func searchGroups(search: String, delegate: VkApiGroupsDelegate) {
         let method = "groups.search"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -141,7 +180,7 @@ class AlamofireService {
             "q": search,
             "extended": "1",
             "sort": "2",
-            "v": "3.0"
+            "v": "5.131"
         ]
         AF.request(fullRow, method: .get, parameters: params)
             .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
@@ -153,7 +192,7 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Получение фотографий
     func getPhotos(delegate: VkApiPhotosDelegate) {
         let method = "photos.getAll"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -161,8 +200,8 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "extended": "1",
-            "v": "3.0",
-            "count":"100"
+            "count":"100",
+            "v": "5.131"
         ]
         
         AF.request(fullRow, method: .get, parameters: params)
@@ -175,6 +214,7 @@ class AlamofireService {
         }
     }
     
+    //MARK: Получение фотографий по ID
     func getPhotosBy(_ id: Int, delegate: VkApiPhotosDelegate) {
         let method = "photos.getAll"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"//&v5.87
@@ -182,9 +222,9 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "extended": "1",
-            "v": "3.0",
             "owner_id":"\(id)",
-            "count":"100"//,
+            "count":"100",
+            "v": "5.131"
             //            "album_id":"saved"
         ]
         
@@ -198,14 +238,14 @@ class AlamofireService {
         }
     }
     
-    
+    //MARK: Получение новостей с делегатом
     func getNews(startFrom: String, delegate: VkApiFeedsDelegate) {
         let method = "newsfeed.get"
         let fullRow = "\(GlobalConstants.vkApi)\(method)"
         let params: Parameters = [
             "access_token": Session.instance.token,
             "filters": "post",
-            "v": "5.87",
+            "v": "5.131",
             "count":"20",
             "start_from":"\(startFrom)"
             //            "end_time":"\(1)"
@@ -220,7 +260,34 @@ class AlamofireService {
         }
     }
     
+    //MARK: Получение новостей с сохранением в Realm
+    func getNews(startFrom: String) {
+        let method = "newsfeed.get"
+        let fullRow = "\(GlobalConstants.vkApi)\(method)"
+        let params: Parameters = [
+            "access_token": Session.instance.token,
+            "filters": "post",
+            "v": "5.131",
+            "count":"20",
+            "start_from":"\(startFrom)"
+            //            "end_time":"\(1)"
+        ]
+        
+        AF.request(fullRow, method: .get, parameters: params)
+            .responseJSON(queue: DispatchQueue.global(qos: .userInteractive)) { response in
+                let feeds = VkResponseParser.instance.parseNews(result: response.result)
+                
+                var realmFeed = feeds.compactMap({ VkFeedRealm( sourceId: $0.sourceId, sourceUrl: $0.sourceUrl, sourceName: $0.sourceName, feedId: $0.feedId, feedText: $0.feedText, feedDate: $0.feedDate,
+                    attachments: $0.attachments, countLikes: $0.countLikes,
+                    countViews: $0.countViews, countReposts: $0.countReposts,
+                    countComments: $0.countComments, isLiked: $0.isLiked
+                    )
+                                                })
+                RealmWorker.instance.saveNewsToRealm(news: realmFeed)
+        }
+    }
     
+    //MARK: Получение комментариев
     func getComments(ownerId: Int, postId: Int, delegate: VkApiCommentsDelegate) {
         //delegate: VkApiFeedsDelegate) {
         let method = "wall.getComments"
@@ -228,7 +295,7 @@ class AlamofireService {
         let params: Parameters = [
             "access_token": Session.instance.token,
             "filters": "post",
-            "v": "5.87",
+            "v": "5.131",
             "count":"50",
             "sort":"desc",
             "need_likes":"1",

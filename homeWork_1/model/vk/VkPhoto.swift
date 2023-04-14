@@ -20,10 +20,10 @@ class VkPhoto: Object {
     @objc dynamic var text = ""
     @objc dynamic var photo = ""
     @objc dynamic var photoBig = ""
-    var likes = VkLikes()//LinkingObjects(fromType: VkLikes.self, property: "likes")//
-    var reposts = VkReposts()//LinkingObjects(fromType: VkReposts.self, property: "reposts")
     
-    
+    var likes: VkLikes? //LinkingObjects(fromType: VkLikes.self, property: "likes")//
+    var reposts: VkReposts? //LinkingObjects(fromType: VkReposts.self, property: "reposts")
+
     override static func primaryKey() -> String? {
         return "pid"
     }
@@ -34,11 +34,11 @@ class VkPhoto: Object {
     
     
     public func likeCount() -> Int {
-        return likes.count
+        return likes?.count ?? 0
     }
     
     public func repostCount() -> Int {
-        return reposts.count
+        return reposts?.count ?? 0
     }
     
     
